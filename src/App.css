@@ -13,7 +13,7 @@
 html,body,#root{height:100%;}
 body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:linear-gradient(180deg,#061424 0%, #071628 60%);color:#e6eef8}
 .app-root{display:flex;height:100vh;min-height:600px}
-.main-area{flex:1;display:flex;align-items:flex-start;justify-content:center;padding:3rem 3rem 6rem 3rem}
+.main-area{flex:1;display:flex;align-items:center;justify-content:center;padding:3rem}
 
 /* ensure pages start at top; specific pages can center themselves if needed */
 .main-area > *{width:100%}
@@ -21,8 +21,8 @@ body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:linear-gra
 /* Sidebar */
 .sidebar{width:260px;background:linear-gradient(180deg,var(--panel),#0b1220);padding:12px 12px;border-right:1px solid rgba(255,255,255,0.03);transition:width .25s;display:flex;flex-direction:column;height:100vh;align-items:flex-start}
 .sidebar-collapsed .sidebar{width:var(--icon-column-width)}
-.brand{display:grid;grid-template-columns:var(--icon-column-width) 1fr auto;align-items:center;gap:12px;padding:6px 8px;width:100%;position:relative}
-.logo{width:var(--icon-size);height:var(--icon-size);border-radius:8px;background:var(--primary);display:flex;align-items:center;justify-content:center;font-weight:700}
+.brand{display:grid;grid-template-columns:auto 1fr auto;align-items:flex-start;gap:12px;padding:4px 8px 6px 8px;width:100%;position:relative}
+.logo{width:calc(var(--icon-size) * 3);height:calc(var(--icon-size) * 3);border-radius:6px;background:transparent;display:flex;align-items:center;justify-content:center;padding:0}
 .company{font-weight:700;color:var(--accent)}
 /* keep previous justify behavior via grid columns */
 .brand-arrow{background:transparent;border:0;color:var(--muted);display:flex;align-items:center;justify-content:center;padding:6px;cursor:pointer;border-radius:8px}
@@ -43,6 +43,10 @@ body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:linear-gra
 /* a common icon box used by logo/avatar/menu icons so centers align */
 .icon-box{width:var(--icon-size);height:var(--icon-size);display:flex;align-items:center;justify-content:center}
 
+/* allow a larger logo when .logo is used alongside .icon-box */
+.icon-box.logo{width:calc(var(--icon-size) * 3);height:calc(var(--icon-size) * 3)}
+.sidebar-collapsed .icon-box.logo{width:var(--icon-size);height:var(--icon-size)}
+
 /* ensure menu stays aligned to top even when collapsed */
 .sidebar-collapsed .menu{justify-content:flex-start}
 .profile{margin-top:12px;padding:8px 10px;display:grid;grid-template-columns:var(--icon-column-width) 1fr;align-items:center;width:100%;margin-top:auto}
@@ -60,6 +64,69 @@ body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:linear-gra
 
 /* ensure profile positioning is relative to the sidebar container */
 .sidebar{position:relative}
+
+/* Drones corner: fixed set of small vector drones at bottom-left */
+.drones-corner{position:fixed;left:12px;bottom:12px;display:flex;gap:10px;align-items:flex-end;z-index:50;pointer-events:none}
+.drones-corner .drone{width:96px;height:62px;opacity:0.98;filter:drop-shadow(0 8px 20px rgba(2,6,23,0.18));transform-origin:center;animation:drone-float 4.6s ease-in-out infinite}
+.drones-corner .drone-0{animation-delay:0s}
+.drones-corner .drone-1{animation-delay:0.18s}
+.drones-corner .drone-2{animation-delay:0.36s}
+.drones-corner .eye{stroke:rgba(0,0,0,0.06);stroke-width:1}
+.drones-corner .pupil{transition:transform .08s linear;transform-box:fill-box}
+
+@keyframes drone-float{0%{transform:translateY(0px)}50%{transform:translateY(-6px)}100%{transform:translateY(0px)}}
+
+/* Respect light/dark variables */
+.theme-light .drones-corner .drone rect{fill:linear-gradient(90deg,var(--panel),var(--bg))}
+
+/* wrapper scales so each drone can have different sizes without breaking animation transform */
+.drones-corner .drone-wrap{display:inline-block;transform-origin:center;pointer-events:none}
+.drones-corner .drone-wrap-0{transform:scale(1) translate(0px, -4px)}
+.drones-corner .drone-wrap-1{transform:scale(0.78) translate(-8px, -26px);opacity:0.9}
+.drones-corner .drone-wrap-2{transform:scale(0.62) translate(36px, -40px);opacity:0.85}
+
+/* rotor spin */
+.drones-corner .rotor .blades{transform-origin:0 0}
+.drones-corner .rotor{transform-origin:center center}
+.drones-corner .rotor .blades{animation:rotor-spin 0.9s linear infinite}
+.drones-corner .drone-1 .rotor .blades{animation-duration:0.78s}
+.drones-corner .drone-2 .rotor .blades{animation-duration:1.06s}
+
+@keyframes rotor-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+/* softer, pale drone defaults for the requested illustration style */
+.drones-corner{left:12px;bottom:12px}
+
+:root{--drone-fill: #f7f8f9;--drone-stroke: #e9ecef;--drone-rotor: #eef2f4;--drone-eye-box: #ffffff}
+.theme-light{--drone-fill: #f3f5f6;--drone-stroke: #e6e9ec;--drone-rotor: #eef2f4;--drone-eye-box: #ffffff}
+
+/* Drone color variables for subtle blending */
+:root{
+  --drone-fill: rgba(255,255,255,0.96);
+  --drone-stroke: rgba(255,255,255,0.08);
+  --drone-rotor: rgba(255,255,255,0.9);
+  --drone-pupil: #2b2f36;
+  --drone-prop-opacity: 0.22;
+  --drone-svg-opacity: 0.28;
+  --drone-eye-accent: rgba(255,255,255,0.85);
+  --drone-eye-opacity: 0.6;
+  --drone-eye-core: #6b7280;
+}
+
+.theme-light{
+  --drone-fill: #f3f5f6;
+  --drone-stroke: #e6e9ec;
+  --drone-rotor: #eef2f4;
+  --drone-pupil: #374151;
+  --drone-prop-opacity: 0.42;
+  --drone-svg-opacity: 0.62;
+  --drone-eye-accent: #f1f4f6;
+  --drone-eye-opacity: 0.75;
+  --drone-eye-core: #6b7280;
+}
+
+
+
 
 /* ensure menu icons line up horizontally with brand logo */
 .menu-btn > .menu-icon{flex:0 0 auto}
@@ -117,12 +184,19 @@ body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:linear-gra
 
 /* Top header and tabs */
 .app-header{height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid rgba(255,255,255,0.03);background:linear-gradient(90deg, rgba(255,255,255,0.01), transparent)}
-.header-left{display:flex;align-items:center;gap:12px}
+.header-left{display:flex;align-items:baseline;gap:12px}
 .brand-mark{width:36px;height:36px;background:var(--primary);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff}
 .brand-name{font-weight:700;color:var(--accent)}
+.brand-mark-img{width:36px;height:36px;border-radius:6px;object-fit:contain;display:block}
+
+.logo-img{width:100%;height:100%;object-fit:contain;display:block}
+.logo-img.no-border{border:0!important;box-shadow:none!important;background:transparent}
+
+/* remove header brand block spacing when hidden */
+.header-left{gap:12px}
 .header-right{color:var(--muted)}
 
-.top-tabs{display:flex;gap:8px;align-items:center}
+.top-tabs{display:flex;gap:8px;align-items:center;margin-top:0}
 .top-tab{color:var(--muted);padding:8px 12px;border-radius:8px;text-decoration:none;font-weight:600;border:1px solid transparent}
 .top-tab:hover{background:rgba(255,255,255,0.02);color:#fff;border-color:rgba(255,255,255,0.03)}
 
@@ -137,12 +211,12 @@ body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:linear-gra
 
 /* Top header and tabs */
 .app-header{height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid rgba(255,255,255,0.03);background:linear-gradient(90deg, rgba(255,255,255,0.01), transparent)}
-.header-left{display:flex;align-items:center;gap:12px}
+.header-left{display:flex;align-items:flex-start;gap:12px}
 .brand-mark{width:36px;height:36px;background:var(--primary);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff}
 .brand-name{font-weight:700;color:var(--accent)}
 .header-right{color:var(--muted)}
 
-.top-tabs{display:flex;gap:8px;align-items:center}
+.top-tabs{display:flex;gap:8px;align-items:flex-start;margin-top:6px}
 .top-tab{color:var(--muted);padding:8px 12px;border-radius:8px;text-decoration:none;font-weight:600;border:1px solid transparent}
 .top-tab:hover{background:rgba(255,255,255,0.02);color:#fff;border-color:rgba(255,255,255,0.03)}
 
@@ -156,3 +230,78 @@ body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:linear-gra
   .hub{width:92%;height:520px}
   .orbit{width:300px;height:300px}
 }
+
+/* Light theme: override main variables to light-grays when `.theme-light` class is present on <html> */
+.theme-light{
+  /* core variables for light mode (shades of gray) */
+  --bg: #f3f8fb; /* ice-gray page background */
+  /* darken panel (~15% darker than previous #d1d5db) */
+  --panel: #b2b5ba; /* sidebar/header base darker */
+  --muted: #0b1220; /* primary text (dark) */
+  --icon-size:30px;
+  --accent: #9ca3af; /* subtle accent */
+  --primary: #cbd5e1;
+  --icon-size-collapsed:var(--icon-size);
+  --icon-column-width:72px;
+}
+
+/* page background horizontal/light gradient using the ice-gray var */
+.theme-light body, .theme-light .app-root{background: var(--bg);}
+
+/* Theme modal styles (light/dark neutral) */
+.theme-modal-backdrop{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:120;background:var(--modal-backdrop, rgba(2,6,23,0.45));}
+.theme-modal{width:420px;max-width:96%;background:var(--panel);border:1px solid var(--modal-border, rgba(0,0,0,0.06));padding:22px;border-radius:14px;color:var(--muted);box-shadow:var(--modal-shadow, 0 14px 44px rgba(2,6,23,0.6));transition:transform .18s ease, opacity .18s ease}
+.theme-modal h3{margin:0 0 8px;color:var(--muted);font-size:20px;font-weight:800}
+.theme-modal-sub{margin:0 0 14px;color:rgba(255,255,255,0.85);font-size:14px;font-weight:600}
+.theme-options{display:flex;gap:12px}
+.theme-option{flex:1;padding:14px;border-radius:12px;border:1px solid transparent;background:var(--option-bg, rgba(255,255,255,0.03));color:var(--muted);cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;gap:8px;transition:transform .12s ease,box-shadow .12s ease,background .12s ease}
+.theme-option:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(2,6,23,0.28)}
+.theme-option .theme-option-label{font-weight:800;font-size:15px}
+.theme-option .theme-option-desc{font-size:13px;color:rgba(255,255,255,0.78);font-weight:600}
+.theme-option.active{background:linear-gradient(90deg,var(--accent),var(--primary));color:#fff;border-color:transparent;box-shadow:0 12px 36px rgba(2,6,23,0.45)}
+.btn{background:var(--btn-bg, rgba(255,255,255,0.04));border:1px solid var(--btn-border, transparent);padding:10px 14px;border-radius:10px;color:var(--btn-text, var(--muted));cursor:pointer;font-weight:700}
+.btn:hover{transform:translateY(-2px)}
+.btn.btn-primary{background:linear-gradient(90deg,var(--accent),var(--primary));color:#fff;border:1px solid rgba(0,0,0,0.06);box-shadow:0 10px 28px rgba(2,6,23,0.44)}
+
+/* Subtle light-mode overrides for modal elements */
+.theme-light{--modal-backdrop: rgba(11,18,32,0.36);--modal-shadow: 0 8px 28px rgba(11,18,32,0.06);--modal-border: rgba(0,0,0,0.06);--option-bg: rgba(0,0,0,0.02);--btn-bg: rgba(0,0,0,0.04);--btn-border: rgba(0,0,0,0.06);--btn-text: #fff}
+.theme-light .theme-modal-sub{color:rgba(11,18,32,0.88)}
+.theme-light .theme-option .theme-option-desc{color:rgba(11,18,32,0.7)}
+.theme-light .theme-option{background:var(--panel);color:var(--muted)}
+.theme-light .theme-option.active{background:var(--accent);color:#fff;box-shadow:none}
+.theme-light .btn.btn-primary{background:linear-gradient(90deg,var(--accent),var(--primary));color:#fff;border:1px solid rgba(0,0,0,0.06);box-shadow:none}
+
+
+
+/* Light-mode specific UI overrides */
+.theme-light .sidebar{
+  background: var(--panel);
+  border-right: 1px solid rgba(0,0,0,0.06);
+}
+
+.theme-light .app-header{
+  background: linear-gradient(90deg, var(--panel) 0%, var(--bg) 100%);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.theme-light .top-tabs,
+.theme-light .brand{color:var(--muted)}
+
+/* menu labels and tabs use dark text in light mode */
+.theme-light .menu-btn,
+.theme-light .top-tab,
+.theme-light .pm-item,
+.theme-light .profile-name,
+.theme-light .company,
+.theme-light .center-text h1,
+.theme-light .center-text p{color:var(--muted)}
+
+.theme-light .menu-btn:hover{background:rgba(0,0,0,0.04);color:var(--muted)}
+.theme-light .menu-btn.active{background:rgba(0,0,0,0.06);color:var(--muted)}
+
+.theme-light .profile-menu{background:var(--panel);border:1px solid rgba(0,0,0,0.06);color:var(--muted)}
+
+/* ensure icons/backgrounds that used fixed light text are visible */
+.theme-light .center-text h1{color:var(--muted)}
+.theme-light .center-text p{color:var(--muted)}
+

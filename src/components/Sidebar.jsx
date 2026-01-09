@@ -1,8 +1,9 @@
 import React, {useState, useRef, useEffect} from 'react'
+import logo from '../images/flavicon2.png'
 import { NavLink } from 'react-router-dom'
+// Floating drones removed per request
 
 const apps = [
-  {id:0,name:'Principal',path:'/'},
   {id:1,name:'Comercial',path:'/dashboard'},
   {id:2,name:'Licitação',path:'/operacoes'},
   {id:3,name:'Financeiro',path:'/frotas'},
@@ -11,7 +12,7 @@ const apps = [
   {id:6,name:'Desenvolvimento',path:'/configuracoes'},
 ]
 
-export default function Sidebar({collapsed=false,onToggle}){
+export default function Sidebar({collapsed=false,onToggle,onOpenTheme}){
   const [profileOpen, setProfileOpen] = useState(false)
   const profileRef = useRef(null)
 
@@ -30,13 +31,15 @@ export default function Sidebar({collapsed=false,onToggle}){
   return (
     <aside className="sidebar">
       <div className="brand">
-        <div style={{display:'flex',alignItems:'center',gap:12}}>
-          <div className="icon-box logo" role="button" tabIndex={0} onClick={onToggle} onKeyDown={(e)=> (e.key==="Enter"||e.key===' ') && onToggle()} style={{cursor:'pointer'}}>NW</div>
+        <NavLink to="/" className="brand-link" style={{display:'flex',alignItems:'center',gap:12,textDecoration:'none'}}>
+          <div className="icon-box logo" role="button" tabIndex={0} style={{cursor:'pointer'}}>
+            <img src={logo} alt="NWDrones" className="logo-img no-border" />
+          </div>
           <div style={{display: collapsed ? 'none' : 'block'}}>
             <div className="company">NWDrones</div>
-            <div style={{fontSize:12,color:'var(--muted)'}}>Hub de Aplicativos</div>
+            <div style={{fontSize:12,color:'var(--muted)'}}>Portal de Aplicativos</div>
           </div>
-        </div>
+        </NavLink>
       </div>
 
       <nav className="menu" aria-label="apps">
@@ -47,7 +50,7 @@ export default function Sidebar({collapsed=false,onToggle}){
         ))}
       </nav>
 
-      <div className="collapse-bar" role="button" tabIndex={0} title="Abrir/Fechar menu" onClick={onToggle} onKeyDown={(e)=> (e.key==="Enter"||e.key===' ') && onToggle()} />
+      {/* collapse removed - sidebar is fixed open */}
 
       <div className="profile" ref={profileRef}>
         <button className="profile-btn" onClick={()=>setProfileOpen(s=>!s)}>
@@ -59,13 +62,14 @@ export default function Sidebar({collapsed=false,onToggle}){
           <div className="profile-menu">
             <button className="pm-item">Perfil</button>
             <button className="pm-item">Visualização</button>
-            <button className="pm-item">Tema</button>
+            <button className="pm-item" onClick={()=>{ if(onOpenTheme) onOpenTheme(); setProfileOpen(false) }}>Tema</button>
             <button className="pm-item">Configurações</button>
             <div className="pm-divider" />
             <button className="pm-item logout">Sair</button>
           </div>
         )}
       </div>
+      {/* Drones removed */}
     </aside>
   )
 }
