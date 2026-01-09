@@ -41,9 +41,8 @@ export default function Sidebar({collapsed=false,onToggle}){
 
       <nav className="menu" aria-label="apps">
         {apps.map(a=> (
-          <NavLink key={a.id} to={a.path} className={({isActive})=>"menu-btn" + (isActive? ' active':'')} title={a.name}>
-            <div className="menu-icon icon-box">{a.name.charAt(0)}</div>
-            <div style={{flex:1,display: collapsed ? 'none' : 'block'}}>{a.name}</div>
+          <NavLink key={a.id} to={a.path} className={({isActive})=>"menu-btn" + (isActive? ' active':'' )} title={a.name}>
+            <div style={{flex:1,display: collapsed ? 'none' : 'block', paddingLeft:8}}>{a.name}</div>
           </NavLink>
         ))}
       </nav>

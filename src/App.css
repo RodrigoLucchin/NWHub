@@ -31,7 +31,8 @@ body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:linear-gra
 .brand-arrow.in svg{transform:rotate(180deg)}
 .brand-arrow.out svg{transform:rotate(0deg)}
 .menu{margin-top:18px;display:flex;flex-direction:column;gap:10px;flex:1;justify-content:flex-start;width:100%}
-.menu-btn{display:grid;grid-template-columns:var(--icon-column-width) auto;align-items:center;gap:4px;padding:6px 8px;border-radius:8px;color:var(--muted);cursor:pointer;width:100%}
+.menu-btn{display:block;align-items:center;padding:6px 8px;border-radius:8px;color:var(--muted);cursor:pointer;width:100%;text-decoration:none}
+.menu-btn, .menu-btn *{text-decoration:none}
 .menu-btn:hover{background:rgba(255,255,255,0.02);color:#fff}
 .menu-btn.active{background:linear-gradient(90deg, rgba(0,163,255,0.08), transparent);color:#fff}
 
@@ -70,7 +71,7 @@ body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:linear-gra
 .sidebar-collapsed .profile{grid-template-columns:var(--icon-column-width) 0fr}
 
 /* clickable bar between menu and profile to toggle sidebar */
-.collapse-bar{width:100%;height:28px;display:grid;grid-template-columns:var(--icon-column-width) 1fr;align-items:center;cursor:pointer;margin-top:6px;margin-bottom:6px}
+.collapse-bar{width:100%;height:28px;display:flex;align-items:center;cursor:pointer;margin-top:6px;margin-bottom:6px}
 .collapse-bar::before{content:'';display:block;width:var(--icon-size);height:8px;margin-left:6px;border-radius:6px;background:transparent}
 .collapse-bar:hover::before{background:rgba(255,255,255,0.02)}
 
