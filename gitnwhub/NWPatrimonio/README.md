@@ -2,6 +2,12 @@
 
 Complete and independent application for managing assets and heritage of NWDrones.
 
+## 📦 Repository
+
+**GitHub**: [https://github.com/Mauro-A-F-S-Filho/potato-project](https://github.com/Mauro-A-F-S-Filho/potato-project)  
+**Branch**: `patrimonio`  
+**Direct Link**: [https://github.com/Mauro-A-F-S-Filho/potato-project/tree/patrimonio](https://github.com/Mauro-A-F-S-Filho/potato-project/tree/patrimonio)
+
 ## 🎯 Overview
 
 A React application with Supabase backend developed for:
