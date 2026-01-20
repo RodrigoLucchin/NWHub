@@ -1,0 +1,329 @@
+.patrimonio-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.patrimonio-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.patrimonio-header h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 800;
+  color: #e6eef8;
+}
+
+.patrimonio-header p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.patrimonio-filtros {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filtro-btn {
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  color: var(--muted);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 13px;
+}
+
+.filtro-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.filtro-btn.active {
+  background: linear-gradient(90deg, var(--accent), var(--primary));
+  color: #fff;
+  border-color: transparent;
+}
+
+.patrimonio-erro {
+  padding: 14px;
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.2);
+  border-radius: 8px;
+  color: #ffb4b4;
+  font-size: 13px;
+}
+
+.patrimonio-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
+}
+
+.patrimonio-vazio {
+  grid-column: 1 / -1;
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+}
+
+.patrimonio-card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+  border: 1px solid rgba(0, 163, 255, 0.15);
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: all 0.3s;
+}
+
+.patrimonio-card:hover {
+  border-color: rgba(0, 163, 255, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 163, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.card-titulo h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #e6eef8;
+}
+
+.card-titulo p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.card-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.card-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.detail-item .label {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.detail-item .value {
+  font-size: 13px;
+  color: #e6eef8;
+  font-family: monospace;
+}
+
+.card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.btn-pequeno {
+  flex: 1;
+  min-width: 100px;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-aceitar {
+  background: rgba(81, 207, 102, 0.15);
+  color: #51cf66;
+  border-color: rgba(81, 207, 102, 0.3);
+}
+
+.btn-aceitar:hover {
+  background: rgba(81, 207, 102, 0.25);
+  border-color: rgba(81, 207, 102, 0.5);
+}
+
+.btn-transferir {
+  background: rgba(0, 163, 255, 0.15);
+  color: var(--accent);
+  border-color: rgba(0, 163, 255, 0.3);
+}
+
+.btn-transferir:hover {
+  background: rgba(0, 163, 255, 0.25);
+  border-color: rgba(0, 163, 255, 0.5);
+}
+
+.btn-devolver {
+  background: rgba(255, 155, 158, 0.15);
+  color: #ff9b9e;
+  border-color: rgba(255, 155, 158, 0.3);
+}
+
+.btn-devolver:hover {
+  background: rgba(255, 155, 158, 0.25);
+  border-color: rgba(255, 155, 158, 0.5);
+}
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 150;
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  background: var(--panel);
+  border: 1px solid rgba(0, 163, 255, 0.15);
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 14px 44px rgba(2, 6, 23, 0.6);
+}
+
+.modal-content h2 {
+  margin: 0 0 8px;
+  color: #e6eef8;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.modal-content p {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #e6eef8;
+}
+
+.form-group select,
+.form-group textarea {
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  color: #e6eef8;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: rgba(0, 163, 255, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.form-group textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.btn-cancelar {
+  flex: 1;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  color: var(--muted);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-cancelar:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.btn-confirmar {
+  flex: 1;
+  padding: 10px 16px;
+  background: linear-gradient(90deg, var(--accent), var(--primary));
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-confirmar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 163, 255, 0.2);
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+  .patrimonio-lista {
+    grid-template-columns: 1fr;
+  }
+
+  .card-details {
+    grid-template-columns: 1fr;
+  }
+}
